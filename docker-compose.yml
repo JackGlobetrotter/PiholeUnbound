@@ -17,10 +17,6 @@ services:
       TZ: 'America/Chicago'
       DNS1: 172.28.1.3#5053
       DNS2: 172.28.1.3#5053
-      # WEBPASSWORD: 'set a secure password here or it will be random'
-    # Volumes store your data between container upgrades
-      INTERFACE: 'eth0'
-      DNSMASQ_LISTENING: 'eth0' 
     volumes:
       - './etc-pihole/:/etc/pihole/' 
       - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
@@ -33,6 +29,7 @@ services:
     container_name: unbound
     volumes:
       - "./unbound/:/opt/unbound/etc/unbound/"
+    restart: unless-stopped
     networks:
         dns_net:
             ipv4_address: 172.28.1.3
